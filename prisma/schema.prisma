@@ -1,0 +1,385 @@
+// prisma/schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── ENUMS ───────────────────────────────────────────────────────────────────
+
+enum Role {
+  SUPER_ADMIN
+  STAFF
+  B2B_CLIENT
+  CUSTOMER
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  IN_PRODUCTION
+  READY
+  SHIPPED
+  COMPLETED
+  CANCELLED
+  REFUNDED
+}
+
+enum PaymentStatus {
+  UNPAID
+  PAID
+  PARTIALLY_PAID
+  REFUNDED
+}
+
+enum FinishType {
+  NONE
+  MATTE_LAMINATION
+  GLOSS_LAMINATION
+  SOFT_TOUCH
+  SPOT_UV
+  FOIL_GOLD
+  FOIL_SILVER
+  EMBOSSING
+  DIE_CUT
+}
+
+enum ProductCategory {
+  BUSINESS_STATIONERY
+  WEDDING_EVENTS
+  LUXURY_PACKAGING
+  LARGE_FORMAT
+  CORPORATE_PUBLISHING
+  SPECIAL_FINISHES
+}
+
+// ─── USER & AUTH ─────────────────────────────────────────────────────────────
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  emailVerified DateTime?
+  name          String?
+  phone         String?
+  passwordHash  String?
+  role          Role      @default(CUSTOMER)
+  locale        String    @default("ar")
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  accounts      Account[]
+  sessions      Session[]
+  orders        Order[]
+  quotes        Quote[]
+  b2bAccount    B2BAccount?
+
+  @@index([email])
+  @@index([role])
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// ─── B2B ─────────────────────────────────────────────────────────────────────
+
+model B2BAccount {
+  id                  String   @id @default(cuid())
+  userId              String   @unique
+  companyName         String
+  taxId               String?
+  discountTier        Int      @default(0) // 0–4, maps to discount %
+  creditLimit         Decimal  @default(0) @db.Decimal(12, 2)
+  paymentTermsDays    Int      @default(30)
+  accountManagerNote  String?  @db.Text
+  isActive            Boolean  @default(true)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+// ─── PRODUCTS ────────────────────────────────────────────────────────────────
+
+model Product {
+  id          String          @id @default(cuid())
+  slug        String          @unique
+  category    ProductCategory
+  nameAr      String
+  nameEn      String
+  nameFr      String
+  descAr      String?         @db.Text
+  descEn      String?         @db.Text
+  descFr      String?         @db.Text
+  basePrice   Decimal         @db.Decimal(10, 2)
+  minQuantity Int             @default(50)
+  maxQuantity Int?
+  isActive    Boolean         @default(true)
+  sortOrder   Int             @default(0)
+  imageUrl    String?
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  options      ProductOption[]
+  pricingRules PricingRule[]
+  orderItems   OrderItem[]
+  quoteItems   QuoteItem[]
+
+  @@index([category])
+  @@index([isActive])
+}
+
+model ProductOption {
+  id          String      @id @default(cuid())
+  productId   String
+  key         String      // e.g. "size", "material", "finish", "paper_weight"
+  labelAr     String
+  labelEn     String
+  labelFr     String
+  valueAr     String
+  valueEn     String
+  valueFr     String
+  value       String      // internal key
+  multiplier  Decimal     @default(1.0) @db.Decimal(6, 4)
+  addedCost   Decimal     @default(0) @db.Decimal(10, 2)
+  sortOrder   Int         @default(0)
+  isDefault   Boolean     @default(false)
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, key, value])
+  @@index([productId])
+}
+
+// ─── PRICING RULES ───────────────────────────────────────────────────────────
+
+model PricingRule {
+  id            String   @id @default(cuid())
+  productId     String?  // null = applies to all products
+  name          String
+  ruleType      String   // "quantity_discount" | "b2b_tier" | "finish_surcharge" | "seasonal"
+  conditionJson Json     // flexible condition storage
+  actionJson    Json     // flexible action (discount%, fixed_off, multiply)
+  priority      Int      @default(0)
+  isActive      Boolean  @default(true)
+  startsAt      DateTime?
+  endsAt        DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  product Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+
+  @@index([productId])
+  @@index([isActive])
+  @@index([ruleType])
+}
+
+model QuantityTier {
+  id           String  @id @default(cuid())
+  productId    String?
+  minQty       Int
+  maxQty       Int?
+  discountPct  Decimal @db.Decimal(5, 2)
+  label        String? // "Wholesale", "Bulk", etc.
+
+  @@index([productId])
+}
+
+// ─── QUOTES ──────────────────────────────────────────────────────────────────
+
+model Quote {
+  id            String   @id @default(cuid())
+  userId        String?
+  guestEmail    String?
+  guestName     String?
+  status        String   @default("draft") // draft | submitted | approved | converted
+  subtotal      Decimal  @db.Decimal(12, 2)
+  taxAmount     Decimal  @db.Decimal(12, 2)
+  deliveryCost  Decimal  @db.Decimal(12, 2)
+  total         Decimal  @db.Decimal(12, 2)
+  currency      String   @default("DZD")
+  notes         String?  @db.Text
+  expiresAt     DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  user  User?       @relation(fields: [userId], references: [id], onDelete: SetNull)
+  items QuoteItem[]
+  order Order?
+
+  @@index([userId])
+  @@index([status])
+}
+
+model QuoteItem {
+  id            String  @id @default(cuid())
+  quoteId       String
+  productId     String
+  quantity      Int
+  configJson    Json    // selected options
+  unitPrice     Decimal @db.Decimal(10, 2)
+  lineTotal     Decimal @db.Decimal(12, 2)
+  fileUrl       String?
+  notes         String?
+
+  quote   Quote   @relation(fields: [quoteId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id])
+
+  @@index([quoteId])
+  @@index([productId])
+}
+
+// ─── ORDERS ──────────────────────────────────────────────────────────────────
+
+model Order {
+  id             String        @id @default(cuid())
+  orderNumber    String        @unique // e.g. ESM-2025-001234
+  userId         String?
+  quoteId        String?       @unique
+  status         OrderStatus   @default(PENDING)
+  paymentStatus  PaymentStatus @default(UNPAID)
+  subtotal       Decimal       @db.Decimal(12, 2)
+  taxAmount      Decimal       @db.Decimal(12, 2)
+  deliveryCost   Decimal       @db.Decimal(12, 2)
+  discountAmount Decimal       @default(0) @db.Decimal(12, 2)
+  total          Decimal       @db.Decimal(12, 2)
+  currency       String        @default("DZD")
+  stripePaymentIntentId String?
+  stripeInvoiceId       String?
+  deliveryAddress Json?
+  notes          String?       @db.Text
+  estimatedReady DateTime?
+  completedAt    DateTime?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  user      User?           @relation(fields: [userId], references: [id], onDelete: SetNull)
+  quote     Quote?          @relation(fields: [quoteId], references: [id])
+  items     OrderItem[]
+  statusLog OrderStatusLog[]
+  invoice   Invoice?
+
+  @@index([userId])
+  @@index([status])
+  @@index([orderNumber])
+  @@index([createdAt])
+}
+
+model OrderItem {
+  id         String  @id @default(cuid())
+  orderId    String
+  productId  String
+  quantity   Int
+  configJson Json
+  unitPrice  Decimal @db.Decimal(10, 2)
+  lineTotal  Decimal @db.Decimal(12, 2)
+  fileUrl    String?
+  notes      String?
+
+  order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id])
+
+  @@index([orderId])
+  @@index([productId])
+}
+
+model OrderStatusLog {
+  id        String      @id @default(cuid())
+  orderId   String
+  status    OrderStatus
+  note      String?
+  createdBy String?
+  createdAt DateTime    @default(now())
+
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@index([orderId])
+}
+
+// ─── INVOICES ────────────────────────────────────────────────────────────────
+
+model Invoice {
+  id            String   @id @default(cuid())
+  orderId       String   @unique
+  invoiceNumber String   @unique
+  issuedAt      DateTime @default(now())
+  dueAt         DateTime?
+  paidAt        DateTime?
+  amount        Decimal  @db.Decimal(12, 2)
+  currency      String   @default("DZD")
+  pdfUrl        String?
+
+  order Order @relation(fields: [orderId], references: [id])
+
+  @@index([orderId])
+}
+
+// ─── PORTFOLIO / CMS ─────────────────────────────────────────────────────────
+
+model PortfolioItem {
+  id          String          @id @default(cuid())
+  titleAr     String
+  titleEn     String
+  titleFr     String
+  category    ProductCategory
+  imageUrl    String
+  isPublished Boolean         @default(false)
+  sortOrder   Int             @default(0)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  @@index([isPublished])
+  @@index([category])
+}
+
+model CmsContent {
+  id        String   @id @default(cuid())
+  key       String   @unique // e.g. "hero_headline_ar", "about_text_en"
+  locale    String
+  section   String   // "hero" | "about" | "services" | "seo"
+  value     String   @db.Text
+  updatedAt DateTime @updatedAt
+  updatedBy String?
+
+  @@index([locale])
+  @@index([section])
+}

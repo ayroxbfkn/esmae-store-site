@@ -1,0 +1,153 @@
+{
+  "nav": {
+    "services": "Services",
+    "portfolio": "Portfolio",
+    "about": "À propos",
+    "pricing": "Tarifs",
+    "contact": "Contact",
+    "getQuote": "Devis gratuit",
+    "dashboard": "Tableau de bord",
+    "signIn": "Connexion",
+    "signOut": "Déconnexion"
+  },
+  "hero": {
+    "eyebrow": "Studio d'impression haut de gamme",
+    "titleLine1": "Où l'artisanat rencontre",
+    "titleLine2": "la précision d'impression",
+    "arabic": "أَسْـٰمَێَ",
+    "subtitle": "Solutions d'impression de luxe façonnées avec précision et art. De la papeterie sur mesure aux grands formats — nous transformons votre vision en impressions intemporelles.",
+    "ctaPrimary": "Démarrer votre projet",
+    "ctaSecondary": "Voir le portfolio",
+    "stat1Value": "2 400+",
+    "stat1Label": "Projets livrés",
+    "stat2Value": "98%",
+    "stat2Label": "Satisfaction client",
+    "stat3Value": "12 ans",
+    "stat3Label": "D'excellence"
+  },
+  "services": {
+    "eyebrow": "Notre expertise",
+    "title": "Conçu avec intention, imprimé à la perfection",
+    "subtitle": "Chaque pièce que nous créons porte le poids de l'histoire de votre marque — racontée à travers la matière, la texture et la précision.",
+    "items": {
+      "stationery": {
+        "title": "Papeterie professionnelle",
+        "desc": "Cartes de visite, en-têtes, enveloppes. Premières impressions gravées dans le papier et l'encre avec des finitions de précision."
+      },
+      "wedding": {
+        "title": "Mariages & Événements",
+        "desc": "Invitations, menus, marque-places et collections complètes pour les occasions les plus mémorables."
+      },
+      "packaging": {
+        "title": "Emballage de luxe",
+        "desc": "Boîtes, sacs et papiers de soie personnalisés. Des emballages qui transforment le déballage en expérience de marque inoubliable."
+      },
+      "largeFormat": {
+        "title": "Grand format",
+        "desc": "Bannières, présentoirs d'exposition, signalétique et fresques. Votre message, sublimé à toute dimension."
+      },
+      "publishing": {
+        "title": "Édition corporate",
+        "desc": "Rapports annuels, catalogues, lookbooks et magazines avec une sélection de papiers premium et options de reliure."
+      },
+      "finishes": {
+        "title": "Finitions spéciales",
+        "desc": "Dorure à chaud, gaufrage, vernis sélectif, découpe. Un luxe tactile qui élève l'impression au-delà de l'ordinaire."
+      }
+    }
+  },
+  "portfolio": {
+    "eyebrow": "Travaux sélectionnés",
+    "title": "Un portfolio d'impressions exceptionnelles",
+    "viewAll": "Voir tous nos travaux"
+  },
+  "about": {
+    "eyebrow": "Notre histoire",
+    "title": "Né d'une passion pour la belle impression",
+    "body1": "Esmae a été fondé avec une conviction profonde : l'impression n'est pas une simple reproduction, c'est la manifestation physique d'une idée. Nous combinons l'artisanat traditionnel et la précision moderne pour créer des imprimés qui perdurent.",
+    "body2": "Depuis notre atelier en Algérie, nous servons des clients à travers la région MENA et au-delà, offrant un service trilingue en arabe, anglais et français.",
+    "values": {
+      "precision": { "title": "Précision", "text": "Chaque millimètre compte. Nous maîtrisons le repérage, l'exactitude des couleurs et la qualité de finition." },
+      "craft": { "title": "Artisanat", "text": "La précision mécanique guidée par des mains humaines et des décennies de savoir accumulé." },
+      "integrity": { "title": "Intégrité", "text": "Tarification transparente. Délais honnêtes. Aucun compromis sur nos engagements." },
+      "heritage": { "title": "Héritage", "text": "Des racines profondes dans la tradition de la calligraphie arabe qui nourrit chaque conversation de design." }
+    }
+  },
+  "quoteBuilder": {
+    "title": "Construisez votre devis en quelques minutes",
+    "subtitle": "Notre moteur de tarification intelligent calcule votre commande en temps réel",
+    "steps": {
+      "1": "Choisir le produit",
+      "2": "Configurer",
+      "3": "Envoyer le fichier",
+      "4": "Réviser",
+      "5": "Commander"
+    },
+    "cta": "Commencer votre devis"
+  },
+  "contact": {
+    "eyebrow": "Nous contacter",
+    "title": "Créons ensemble quelque chose de mémorable",
+    "form": {
+      "name": "Nom complet",
+      "namePlaceholder": "Votre nom",
+      "email": "E-mail",
+      "phone": "Téléphone",
+      "service": "Service",
+      "message": "Détails du projet",
+      "messagePlaceholder": "Parlez-nous de votre projet, quantité, délais...",
+      "submit": "Envoyer la demande"
+    },
+    "info": {
+      "location": "Adresse du studio",
+      "locationValue": "Rue des Artisans, M'Sila, Algérie 28000",
+      "phone": "Téléphone",
+      "phoneValue": "0658750662",
+      "email": "E-mail",
+      "emailValue": "hebiliasma1@gmail.com",
+      "hours": "Horaires",
+      "hoursValue": "Dim – Jeu : 8h00 – 18h00\nSam : 9h00 – 14h00"
+    }
+  },
+  "footer": {
+    "tagline": "Impression de luxe",
+    "desc": "Studio d'impression haut de gamme multilingue au service des clients en Algérie et dans la région MENA depuis 2012.",
+    "services": "Services",
+    "platform": "Plateforme",
+    "company": "Entreprise",
+    "rights": "Tous droits réservés"
+  },
+  "admin": {
+    "dashboard": "Tableau de bord admin",
+    "products": "Produits",
+    "orders": "Commandes",
+    "pricing": "Règles de tarification",
+    "portfolio": "Portfolio",
+    "users": "Utilisateurs",
+    "analytics": "Analyses",
+    "cms": "CMS"
+  },
+  "b2b": {
+    "dashboard": "Portail B2B",
+    "orders": "Mes commandes",
+    "quotes": "Devis",
+    "account": "Mon compte",
+    "invoices": "Factures"
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Une erreur s'est produite",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "add": "Ajouter",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "export": "Exporter",
+    "status": "Statut",
+    "actions": "Actions",
+    "confirm": "Confirmer",
+    "back": "Retour"
+  }
+}

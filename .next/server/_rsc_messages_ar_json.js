@@ -1,0 +1,25 @@
+"use strict";
+/*
+ * ATTENTION: An "eval-source-map" devtool has been used.
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file with attached SourceMaps in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
+exports.id = "_rsc_messages_ar_json";
+exports.ids = ["_rsc_messages_ar_json"];
+exports.modules = {
+
+/***/ "(rsc)/./messages/ar.json":
+/*!**************************!*\
+  !*** ./messages/ar.json ***!
+  \**************************/
+/***/ ((module) => {
+
+module.exports = /*#__PURE__*/JSON.parse('{"nav":{"services":"خدماتنا","portfolio":"أعمالنا","about":"من نحن","pricing":"الأسعار","contact":"تواصل معنا","getQuote":"احصل على عرض سعر","dashboard":"لوحة التحكم","signIn":"تسجيل الدخول","signOut":"تسجيل الخروج"},"hero":{"eyebrow":"استوديو طباعة فاخر","titleLine1":"حيث تلتقي","titleLine2":"الحرفة بدقة الطباعة","arabic":"أَسْـٰمَێَ","subtitle":"حلول طباعة فاخرة مصنوعة بدقة وفنية. من القرطاسية الراقية إلى الطباعة الكبيرة — نحوّل رؤيتك إلى انطباعات خالدة.","ctaPrimary":"ابدأ مشروعك","ctaSecondary":"استعرض أعمالنا","stat1Value":"2,400+","stat1Label":"مشروع منجز","stat2Value":"98%","stat2Label":"رضا العملاء","stat3Value":"12 سنة","stat3Label":"من التميز"},"services":{"eyebrow":"خبرتنا","title":"مصنوع بنية، مطبوع باتقان","subtitle":"كل قطعة نصنعها تحمل ثقل قصة علامتك التجارية — مرويّة من خلال المادة والملمس والدقة.","items":{"stationery":{"title":"قرطاسية الأعمال","desc":"بطاقات العمل، الأوراق الرسمية، الأظرف. انطباعات أولى راسخة في الورق والحبر مع خيارات تشطيب دقيقة."},"wedding":{"title":"الأفراح والمناسبات","desc":"دعوات، قوائم طعام، بطاقات الجلوس، ومجموعات كاملة مصنوعة لأبهج المناسبات."},"packaging":{"title":"التغليف الفاخر","desc":"صناديق وأكياس وأوراق تغليف مخصصة. تغليف يحوّل تجربة الفتح إلى لحظة لا تُنسى."},"largeFormat":{"title":"الطباعة الكبيرة","desc":"لافتات، عروض المعارض، اللوحات والجداريات. رسالتك بأبعاد مهيبة."},"publishing":{"title":"النشر المؤسسي","desc":"التقارير السنوية، الكتالوجات، كتب العروض والمجلات بأفضل أنواع الورق وخيارات التجليد."},"finishes":{"title":"التشطيبات الخاصة","desc":"الورنيش بالذهب، النقش البارز، الورنيش الموضعي، القطع الخاص. فخامة لمسية ترفع الطباعة."}}},"portfolio":{"eyebrow":"أعمال مختارة","title":"معرض من الانطباعات الاستثنائية","viewAll":"عرض جميع الأعمال"},"about":{"eyebrow":"قصتنا","title":"وُلدنا من شغف الطباعة الجميلة","body1":"تأسس أسماء بقناعة راسخة: الطباعة ليست مجرد استنساخ، بل هي التجسيد المادي لفكرة. نجمع بين الحرفية التقليدية والدقة الحديثة لنصنع مطبوعات تصمد عبر الزمن.","body2":"من أتيليه في الجزائر، نخدم عملاء في منطقة الشرق الأوسط وشمال أفريقيا وما وراءها، بخدمة ثلاثية اللغات: العربية والإنجليزية والفرنسية.","values":{"precision":{"title":"الدقة","text":"كل مليمتر مهم. نهووس بدقة التسجيل ودقة الألوان وجودة التشطيب."},"craft":{"title":"الحرفة","text":"دقة الآلة موجّهة بأيدٍ بشرية وعقود من المعرفة المتراكمة."},"integrity":{"title":"النزاهة","text":"تسعير شفاف. جداول زمنية صادقة. لا تنازلات عما نعد به."},"heritage":{"title":"الموروث","text":"جذور عميقة في تراث الخط العربي تُثري كل حوار تصميمي."}}},"quoteBuilder":{"title":"ابنِ عرض سعرك في دقائق","subtitle":"محرك التسعير الذكي يحسب تكلفة طلبك فوراً","steps":{"1":"اختر المنتج","2":"خصّص الخيارات","3":"ارفع ملف التصميم","4":"راجع الملخص","5":"اطلب أو ادفع"},"cta":"ابدأ بناء عرض سعرك"},"contact":{"eyebrow":"تواصل معنا","title":"لنصنع معاً شيئاً لا يُنسى","form":{"name":"الاسم الكامل","namePlaceholder":"اسمك","email":"البريد الإلكتروني","phone":"الهاتف","service":"الخدمة","message":"تفاصيل المشروع","messagePlaceholder":"أخبرنا عن مشروعك، الكمية، الموعد...","submit":"إرسال الاستفسار"},"info":{"location":"الموقع","locationValue":"شارع الحرفيين، المسيلة، الجزائر 28000","phone":"اتصل بنا","phoneValue":"0658750662","email":"البريد","emailValue":"hebiliasma1@gmail.com","hours":"ساعات العمل","hoursValue":"الأحد – الخميس: 8:00 – 18:00\\nالسبت: 9:00 – 14:00"}},"footer":{"tagline":"طباعة فاخرة","desc":"استوديو طباعة فاخر متعدد اللغات يخدم عملاء في الجزائر ومنطقة الشرق الأوسط وشمال أفريقيا منذ 2012.","services":"الخدمات","platform":"المنصة","company":"الشركة","rights":"جميع الحقوق محفوظة"},"admin":{"dashboard":"لوحة الإدارة","products":"المنتجات","orders":"الطلبات","pricing":"قواعد التسعير","portfolio":"معرض الأعمال","users":"المستخدمون","analytics":"التحليلات","cms":"إدارة المحتوى"},"b2b":{"dashboard":"بوابة الجملة","orders":"طلباتي","quotes":"عروض الأسعار","account":"حسابي","invoices":"الفواتير"},"common":{"loading":"جاري التحميل...","error":"حدث خطأ","save":"حفظ","cancel":"إلغاء","delete":"حذف","edit":"تعديل","add":"إضافة","search":"بحث","filter":"تصفية","export":"تصدير","status":"الحالة","actions":"الإجراءات","confirm":"تأكيد","back":"رجوع"}}');
+
+/***/ })
+
+};
+;
